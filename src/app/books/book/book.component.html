@@ -1,0 +1,22 @@
+<li class="flex border rounded-xl h-60">
+    <img [src]="book.image" [alt]="book.title" width="100"
+        class="m-auto rounded-sm" />
+    <div class="m-auto">
+        <p class="text-lg">
+          {{ book.title | titlecase }} by
+          <ng-container *ngFor="let author of book.authors; let i = index">
+            {{ author.firstName | titlecase }}
+            {{ author.lastName | titlecase }}
+            <ng-container *ngIf="i < book.authors.length - 1">, </ng-container>
+          </ng-container>
+
+        </p>
+        <p class="my-4">{{ book.price | currency:'MDL ' }}</p>
+        <div class="flex mb-4">
+          <button type="button" class="bg-yellow-400 rounded p-3" (click)="decreaseAmount()">-</button>
+          <input class="border rounded p-3 max-w-[50px] text-center" type="text" step="1" [(ngModel)]="bookCounter">
+          <button type="button" class="bg-yellow-400 rounded p-3" (click)="increaseAmount()">+</button>
+        </div>
+        <button *ngIf="!isInCartComponent" class="bg-yellow-400 rounded p-3" (click)="addToCart()">Add to Cart</button>
+    </div>
+</li>

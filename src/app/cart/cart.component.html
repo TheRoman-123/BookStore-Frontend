@@ -1,0 +1,19 @@
+<h1>Your Cart</h1>
+<form (ngSubmit)="createSale()">
+  <div *ngIf="booksWithSaleAmount.length > 0">
+      <div *ngFor="let bookWithSaleAmount of booksWithSaleAmount; let i=index;">
+          <app-book [book]="bookWithSaleAmount.book"
+                    [bookCounter]="bookWithSaleAmount.amount"
+                    [isInCartComponent]="true"
+                    (removeEmitter)="ngOnInit()">
+          </app-book>
+      </div>
+  </div>
+  <div *ngIf="booksWithSaleAmount.length == 0">No books in your cart</div>
+
+
+  <div class="order" *ngIf="booksWithSaleAmount.length > 0">
+<!--    <div class="total-sum">Total sum: {{  }}</div>-->
+    <input class="w-full border bg-yellow-400 rounded p-3 cursor-pointer" name="order" type="submit" value="Order">
+  </div>
+</form>

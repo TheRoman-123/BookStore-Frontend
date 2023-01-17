@@ -1,0 +1,8 @@
+.order {
+  max-width: 100px;
+  margin: 12px 5% 0 auto;
+}
+
+.order > input:active {
+  background-color: gold;
+}
