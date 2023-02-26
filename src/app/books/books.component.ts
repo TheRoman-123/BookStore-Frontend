@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../types/Book';
 import { BooksService } from './books.service';
+import { Constants } from "../constants/Constants";
 
 @Component({
   selector: 'app-books',
@@ -17,14 +18,11 @@ export class BooksComponent implements OnInit {
     this.booksService.getBooks().subscribe({
       next: (data) => {
         this.books = data;
+        this.books.forEach(book => book.image = Constants.serverUrl + "books/image/" + book.id);
       },
       error: err => {
 
       }
     });
-
-    /*this.booksService.getBookImages().subscribe((data) => {
-
-    });*/
   }
 }

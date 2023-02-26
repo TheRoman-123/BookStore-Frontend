@@ -5,6 +5,6 @@ export interface Book {
   title: string;
   authors: Array<Author>;
   price: number;
-  image?: ImageBitmap;
+  image?: string;
   amount?: number;
 }

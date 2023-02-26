@@ -4,18 +4,29 @@ import {HttpOptions} from "../types/Http";
 import {map, Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {Book} from "../types/Book";
+import {Constants} from "../constants/Constants";
 
 @Injectable()
 export class BooksService {
-  serverUrl: string = "http://localhost:8080/books";
+  serverUrl: string = Constants.serverUrl + "books";
   httpOptions: HttpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+  pageNumber: number = 0;
+  pageSize: number = 50;
+  sortCriteria: string = "title";
+  desc: boolean = false;
 
   constructor(private http: HttpClient) {}
 
   getBooks(): Observable<Book[]> {
-    return this.http.get(this.serverUrl).pipe(
+    let url = this.serverUrl +
+      "?pageNumber=" + this.pageNumber +
+      "&pageSize=" + this.pageSize +
+      "&sortCriteria=" + this.sortCriteria +
+      "&desc=" + this.desc;
+
+    return this.http.get(url).pipe(
       map((data) => {
         let list: any[] = data as any[];
 
@@ -24,7 +35,6 @@ export class BooksService {
             id: book.id,
             price: book.price,
             title: book.title,
-            image: book.image,    // TODO: придумай что-то с картинкой
             authors: book.authors
           }
         });
